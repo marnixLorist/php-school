@@ -8,7 +8,7 @@
 <body>
     <?php
      $bomen = array("img/nfjehfo.jpg", "img/enfkhqewo.jpg", "img/qwogoq2.jpg",);
-     foreacht($bomen as $boom){
+     foreach($bomen as $boom){
             echo "<img src=img/bomen/'" .$boom. "'>";
      }
     ?>
