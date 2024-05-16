@@ -7,28 +7,10 @@
 </head>
 <body>
     <?php
-        $a = 'Ik heb niet gefaald';
-        $b = 'die niet werken.';
-        $c = '10000';
-        echo $a . ' ik heb alleen ' . $c . ' manieren gevonden ' . $b; 
-        echo "<br>";
-
-        $a = 'die geen fout';
-        $b = 'en';
-        $c = 'niet.';
-        echo ' Mensen ' . $a . $b . ' maken, werken ' . $c;
-        echo "<br>";
-
-        $a = 'ry';
-        $b = ', but';
-        $c = 'fail';
-        echo 'T' . $a . ' and ' . $c . $b . ' never ' . $c . ' to t' . $a;
-        echo "<br>";
-
-        $a = "\"omgaan";
-        $b = "met";
-        $c = "teleurstellingen\"";
-        echo 'De cursus ' . $a . ' ' . $b . ' ' . $c . ' kan vanavond helaas niet doorgaan.';
+    for($i = 1; $i <= 10; $i++){
+       echo "<img src='/php school/img/aap" .$i. ".jpg'>";
+       //dit kan je doen omdat de afbeeldingen allemaal hetzelfde beginnen en en een nummer hebben die de heletijd ++ gaat
+    }
     ?>
 </body>
 </html>
