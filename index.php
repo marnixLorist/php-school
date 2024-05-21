@@ -6,11 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    <?php
-    for($i = 1; $i <= 10; $i++){
-       echo "<img src='/php school/img/aap" .$i. ".jpg'>";
-       //dit kan je doen omdat de afbeeldingen allemaal hetzelfde beginnen en en een nummer hebben die de heletijd ++ gaat
-    }
-    ?>
+  <ul>
+    <li><a href="aap.php">aap.php</a></li>
+    <li><a href="array.php">array.php</a></li>
+    <li><a href="kerstboom.php">kerstboom.php</a></li>
+    <li><a href="for.php">for.php</a></li>
+    <li><a href="busreis.php">busreis</a></li>
+  </ul>
 </body>
 </html>
