@@ -12,6 +12,7 @@
     <li><a href="kerstboom.php">kerstboom.php</a></li>
     <li><a href="for.php">for.php</a></li>
     <li><a href="busreis.php">busreis</a></li>
+    <li><a href="zwem.php">zwem</a></li>
   </ul>
 </body>
 </html>
