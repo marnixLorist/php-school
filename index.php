@@ -13,6 +13,7 @@
     <li><a href="for.php">for.php</a></li>
     <li><a href="busreis.php">busreis</a></li>
     <li><a href="zwem.php">zwem</a></li>
+    <li><a href="kapperszaak.php">kapperszaak</a></li>
   </ul>
 </body>
 </html>
