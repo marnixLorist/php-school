@@ -15,6 +15,7 @@
     <li><a href="zwem.php">zwem</a></li>
     <li><a href="kapperszaak.php">kapperszaak</a></li>
     <li><a href="celcius.php">celcius</a></li>
+    <li><a href="input.html">input</a></li>
   </ul>
 </body>
 </html>
