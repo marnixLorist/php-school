@@ -17,6 +17,7 @@
     <li><a href="celcius.php">celcius</a></li>
     <li><a href="input.html">input</a></li>
     <li><a href="apen.php">apen</a></li>
+    <li><a href="inlogpage.html">inlogpage</a></li>
   </ul>
 </body>
 </html>
