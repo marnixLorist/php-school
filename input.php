@@ -7,7 +7,21 @@
 </head>
 <body>
     <?php
-    print_r($_GET);
+    echo $_POST['inlognaam'] . "<br>";
+    if($_POST['inlognaam'] == "" ) {
+        echo "Vul je inlognaam in" . "<br>";
+       echo "<a href='input.html'>terug naar de inlogpagina</a>" . "<br>";
+    }
+    echo $_POST['adres'] . "<br>";
+    if($_POST['adres'] == "" ) {
+        echo "vul je adres in" . "<br>";
+        echo "<a href='input.html'>terug naar de inlogpagina</a>" . "<br>";
+    }
+    echo $_POST['email'] . "<br>";
+    if($_POST['email'] == "" ) {
+        echo "vul je email in" . "<br>";
+        echo "<a href='input.html'>terug naar de inlogpagina</a>" . "<br>";
+    }
     ?>
 </body>
 </html>
