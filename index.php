@@ -19,6 +19,8 @@
     <li><a href="apen.php">apen</a></li>
     <li><a href="inlogpage.html">inlogpage</a></li>
     <li><a href="mysql.php">mysql</a></li>
+    <li><a href="addDocent.html">addDocent</a></li>
+    <li><a href="inlogklant.html">inlogklant</a></li>
   </ul>
 </body>
 </html>
