@@ -21,6 +21,8 @@
     <li><a href="mysql.php">mysql</a></li>
     <li><a href="addDocent.html">addDocent</a></li>
     <li><a href="inlogklant.html">inlogklant</a></li>
+    <li><a href="mrWheely.php">mrWheely</a></li>
+    <li><a href="crud.php">crud</a></li>
   </ul>
 </body>
 </html>

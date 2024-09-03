@@ -1,0 +1,34 @@
+header{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+body{
+    background-color: #f0f0f0;
+    font-family: 'Roboto', sans-serif;
+}
+.forms{
+    display: flex;
+    margin: 2%;
+    align-items: center;
+    justify-content: center;
+}
+
+.result{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+img {
+    width: 150px; 
+    height: 75px; 
+    background-color: #f0f0f0;
+}
+
+.sql{
+    display: flex;
+    justify-content: left;
+    margin: 2%;
+}
