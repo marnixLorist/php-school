@@ -17,8 +17,10 @@ if (isset($_POST['updateKnop'])) {
     $nieuwEmail = $_POST['nieuwEmail'];
     $nieuwWachtwoord = $_POST['nieuwWachtwoord'];
 
+    $hashed_wachtwoord = password_hash($nieuwWachtwoord, PASSWORD_DEFAULT);
+
     $stmt = $conn->prepare("UPDATE inlogInformatie SET email = ?, wachtwoord = ? WHERE voornaam = ? AND achternaam = ?");
-    $stmt->bind_param("ssss", $nieuwEmail, $nieuwWachtwoord, $voornaam, $achternaam);
+    $stmt->bind_param("ssss", $nieuwEmail, $hashed_wachtwoord, $voornaam, $achternaam);
     $stmt->execute();
 }
 
@@ -67,6 +69,8 @@ if (isset($_POST['updateKnop'])) {
     achternaam <input type="text" name="achternaam" value="">
     nieuwe email <input type="text" name="nieuwEmail" value="">
     nieuw wachtwoord <input type="password" name="nieuwWachtwoord" value="">
+    
+
     <input type="submit" name="updateKnop">
     </form>
     <h3>Update je adres, postcode en telefoon</h3>
