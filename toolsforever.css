@@ -9,6 +9,10 @@ body{
     margin: 0px;
 }
 
+a{
+    text-decoration: none;
+}
+
 .start{
     margin-left: 1rem;
     margin-top: 10px;
