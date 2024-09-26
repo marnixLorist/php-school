@@ -10,6 +10,8 @@
      if ($conn->connect_error) {
          die("Connection failed: " . $conn->connect_error);
      }
+     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+     if (isset($_POST["locatie"], $_POST["product"], $_POST["type"], $_POST["fabriek"], $_POST["aantal"], $_POST["prijs"], $_POST["inkoopprijs"], $_POST["verkoopprijs"]) && !empty($_POST["locatie"]) && !empty($_POST["product"]) && !empty($_POST["type"]) && !empty($_POST["fabriek"]) && !empty($_POST["aantal"]) && !empty($_POST["prijs"]) && !empty($_POST["inkoopprijs"]) && !empty($_POST["verkoopprijs"])) {
      $locatie = isset($_POST["locatie"]) ? $_POST["locatie"] : null;
      $product = isset($_POST["product"]) ? $_POST["product"] : null;
      $type = isset($_POST["type"]) ? $_POST["type"] : null;
@@ -24,6 +26,12 @@
     $stmt->execute();
     $stmt->close();
 
+    $selectLocatie = isset($_POST["locatie"]) ? $_POST["locatie"] : null;
+
+    } else {
+        echo "<span class='name'>" . 'Vul alles in.' . "</span>";
+    }
+}
     
        
         
@@ -53,7 +61,12 @@
     <div class="forms">
     <form action="toevoegen.php" method="post" > 
         <div class="inhoudFr">
-        locatie<input type="text" name="locatie" value="">
+            <label for="locatie">locatie</label>
+            <select name="locatie" id="">
+                <option value="Almere">Almere</option>
+                <option value="Eindhoven">Eindhoven</option>
+                <option value="Rotterdam">Rotterdam</option>
+            </select>
         product<input type="text" name="product" value="">   
         type<input type="text" name="type" value="">
         fabriek<input type="text" name="fabriek" value="">
@@ -62,8 +75,12 @@
         inkoopprijs<input type="text" name="inkoopprijs" value="">
         verkoopprijs<input type="text" name="verkoopprijs" value="">
         </div>
-        <button type="submit"  class="submit">submit</button>
+        <div class="outline">
+        <button type="submit"  class="submit">toevoegen</button>
+        </div>
+        <input type="hidden" name="check">
      </form>
      </div>
+     <p>Tools4Ever © 2024</p>
 </body>
 </html>
