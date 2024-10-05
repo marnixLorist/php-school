@@ -1,47 +1,154 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "poppins", sans-serif;
+}
+
+.toolsForEver{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-size: 3rem;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.vier{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 3rem;
+    color: rgb(47, 152, 217);
+}
+
+.punt{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 3rem;
+    color: rgb(47, 152, 217);
+}
+
+a{
+    text-decoration: none;
+}
+
 .inloggen{
-    align-items: center;
     display: flex;
-    justify-content: center;
-    margin: 0px;
+    flex-direction: column;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px grey;
+    background-color: rgba(255, 255, 255, 0.873);
+    padding: 10px;
+    margin: auto;
+    text-align: center;
+    gap: 60px;
+    width: 375px;
+    font-size: 30px;;
+
 }
 
-.inlog{
-    align-items: center;
+form{
     display: flex;
+    flex-direction: column;
+    gap: 70px;
     justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 2rem;
+
 }
 
-.account{
-    align-items: center;
+.container {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
-    margin-bottom: 0px;
-}
-
-body{
-    margin: 0px;
-    background-color: lightgray
-}
-
-.forms{
     align-items: center;
-    justify-content: center;
-    display: flex;
-    background-color: lightyellow;
-    margin: 0px;
-    margin-left: 600px;
-    margin-right: 600px;
-    border-radius: 50px;
-    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+    height: 80vh;
 }
 
-.submit{
-    border-radius:10px;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    margin-left: 100px;
+
+input{
+    all: unset;
+    border-bottom: solid 2px rgb(47, 152, 217);
+    max-width: 300px;
+    text-align: left;
+    font-size: 20px;
+    transition: 0.3s;
+    }
+
+input:hover{
+    border-bottom: solid 2px rgb(131, 200, 243);
 }
+
+.inloggen form .knop{
+    transform: translateY(-5px);
+}
+.knop{
+    all: unset;
+    background-color: rgb(47, 152, 217);
+    border-radius: 8px;
+    transition: 0.5s;
+    color: white;
+    font-size: 20px;
+    padding: 8px;
+}
+
+.knop:hover{
+    color: rgb(47, 152, 217);
+    background-color: white;
+    box-shadow: 0px 0px 18px rgb(47, 152, 217);
+}
+
+.knop:active{
+    background-color: rgb(47, 152, 217);
+    color: white;
+}
+
+.accountMaken{
+    font-size: 13px;
+    transition: 0.5s;
+}
+
+span{
+    color: rgb(47, 152, 217);
+    transition: 0.3s;
+}
+
+span:hover{
+    color: rgb(15, 84, 175);
+}
+
+@media (max-width: 600px) {
+    .inloggen{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px grey;
+        background-color: rgba(255, 255, 255, 0.873);
+        padding: 5px;
+        margin: auto;
+        text-align: center;
+        gap: 20px;
+        width: 300px;
+        height: 300px;
+        font-size: 15px;
+
+    
+    }
+    .container{
+        height: 450px;
+    }
+
+    form{
+        gap: 20px;
+    }
+    input{
+        all: unset;
+        border-bottom: solid 2px rgb(47, 152, 217);
+        max-width: 280px;
+        text-align: left;
+        font-size: 20px;
+        transition: 0.3s;
+        position: relative;
+        gap: 10px;
+    }   
+}
+
 

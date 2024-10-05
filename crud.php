@@ -11,35 +11,17 @@
          die("Connection failed: " . $conn->connect_error);
      }
 
-     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-     if (isset($_POST["voornaam"], $_POST["achternaam"], $_POST["geboortedatum"], $_POST["email"], $_POST["wachtwoord"]) && !empty($_POST["voornaam"]) && !empty($_POST["achternaam"]) && !empty($_POST["geboortedatum"]) && !empty($_POST["email"]) && !empty($_POST["wachtwoord"])) {
-     $vNaam = isset($_POST["voornaam"]) ? $_POST["voornaam"] : null;
-     $aNaam = isset($_POST["achternaam"]) ? $_POST["achternaam"] : null;
-     $gDatum = isset($_POST["geboortedatum"]) ? $_POST["geboortedatum"] : null;
-     $adres = isset($_POST["adres"]) ? $_POST["adres"] : null;
-     $postcode = isset($_POST["postcode"]) ? $_POST["postcode"] : null;
-     $telefoon = isset($_POST["telefoon"]) ? $_POST["telefoon"] : null;
-     $email = isset($_POST["email"]) ? $_POST["email"] : null;
-     $wWoord = isset($_POST["wachtwoord"]) ? $_POST["wachtwoord"] : null;
+     $email = isset($_POST["email"]) ? $_POST["email"] : "";
+     $wWoord = isset($_POST["wachtwoord"]) ? $_POST["wachtwoord"] : "";
 
      $hashed_wachtwoord = password_hash($wWoord, PASSWORD_DEFAULT);
     
 
-     $stmt = $conn->prepare("INSERT INTO inlogInformatie (voornaam, achternaam, geboortedatum, adres, postcode, telefoon, email, wachtwoord) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-     $stmt->bind_param("ssssssss", $vNaam, $aNaam, $gDatum, $adres, $postcode, $telefoon, $email, $hashed_wachtwoord);
-     $stmt->execute();
-        $stmt->close();
-        } else {
-            echo "Vul alle velden in";
-        }
-    }
-
-
      
     ob_start();
     if (isset($_POST["inloggen"])){
-     $email = isset($_POST["email"]) ? $_POST["email"] : null;
-     $wachtwoord = isset($_POST["wachtwoord"]) ? $_POST["wachtwoord"] : null;
+     $email = isset($_POST["email"]) ? $_POST["email"] : "";
+     $wachtwoord = isset($_POST["wachtwoord"]) ? $_POST["wachtwoord"] : "";
 
     
         $stmt = $conn->prepare("SELECT * FROM inlogInformatie WHERE email = ? ");
@@ -58,11 +40,11 @@ if ($result->num_rows > 0) {
             break;
         }
     }
-    if (!$loginSucces) { // Controleer of de login niet succesvol was
-        echo "wachtwoord of gebruikersnaam is onjuist"; // Echo de foutmelding slechts één keer
+    if (!$loginSucces) { 
+        echo "wachtwoord of gebruikersnaam is onjuist"; 
     }
 } else {
-    echo "wachtwoord of gebruikersnaam is onjuist"; // Echo de foutmelding als er geen rijen zijn
+    echo "wachtwoord of gebruikersnaam is onjuist"; 
 }
     $stmt->close();
 } 
@@ -80,30 +62,20 @@ ob_end_flush();
     <link rel="stylesheet" href="crud.css">
 </head>
 <body>
-    <h3 class="inlog">inloggen</h3>
-    <div class="inloggen">
-
+<header>
+    <a href="toevoegen.php"><h1 class="toolsForEver">Tools<span class="vier">4</span>Ever<span class="punt">.<span></h1></a>
+</header>
+<div class="container">
+<div class="inloggen">
+    <h3 class="inlog">Login</h3>
     <form action="crud.php" method="post" >
-    email <input type="text" name="email" value="">
-    wachtwoord <input type="password" name="wachtwoord" value="">
-    <input type="submit" name="knop">
-    </div>
+    <input type="text" name="email" placeholder="email">
+    <input type="password" name="wachtwoord" placeHolder="wachtwoord" minlength="7" required>
+    <p  class="accountMaken">geen account? <a href="aanmaken.php"><span>Account aanmaken.</span></a></p>
+    <input type="submit" name="knop" class="knop" value="Inloggen" >
     <input type="hidden" name="inloggen">
-    </form>
-
-    <h3 class="account">account aanmaken</h3>
-    <div class="forms">
-    <form action="crud.php" method="post">
-    voornaam <input type="text" name="voornaam" value=""> <br>
-    achternaam <input type="text" name="achternaam" value=""> <br>
-    geboortedatum <input type="text" name="geboortedatum" value=""> <br>
-    adres <input type="text" name="adres" value=""> <br>
-    postcode <input type="text" name="postcode" value=""> <br>
-    telefoon <input type="text" name="telefoon" value=""> <br>
-    email <input type="text" name="email" value=""> <br>
-    wachtwoord <input type="password" name="wachtwoord" value=""> <br>   
-    <button type="submit" class="submit">Submit</button>
+</form>
     </div>
-
+    </div>
 </body>
 </html>
