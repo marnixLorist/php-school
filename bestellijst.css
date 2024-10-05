@@ -1,0 +1,161 @@
+/* header/toolsforever */
+.tools{
+    font-size: 30px;
+    margin-left: 10px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.Bestel{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    height: 0rem;
+    font-size: 3rem;
+    margin: auto;
+    margin-left: 500px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#four{
+    color: rgb(47, 152, 217);
+   }
+   
+#p{
+       color: rgb(47, 152, 217);
+}
+
+.punt{
+    color: rgb(47, 152, 217);
+    font-size: 3rem;
+}
+
+header{
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+/* geen marign in de body en kan niet meer scrollen naar rechts */
+body{
+    margin: 0px;
+    width: 100%;
+    overflow-x: hidden;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* de dropdown menu */
+
+.fa-bars{
+    font-size: 2rem;
+    margin: 1px;
+    transition-duration: 0.3s;
+    transform-origin: center;
+
+}
+
+.fa-bars:hover{
+    color: black;
+    transform: rotate(-180deg);
+}
+
+.dropbtn{
+    color: rgb(47, 152, 217);
+    background-color: white;
+    padding-right: 0px;
+    padding-left: 0px;
+    margin: 0px;
+    padding: auto;
+    font-size: 16px;
+    border: none;
+    margin-right: 7rem;
+    margin-right: 15px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}   
+
+.dropdown-content{
+    display: none;
+    position: absolute;
+    max-width: fit-content;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    left: -60px;
+    text-align: center;
+}
+
+
+.dropdown-content a{
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    margin-right: 1rem;
+}
+
+.dropdown-content a:hover{
+    background-color: rgb(47, 152, 217);
+}   
+
+.dropdown:hover .dropdown-content{
+    display: block;
+}
+
+.dropdown:hover .dropbtn{
+    background-color: white;
+}
+
+/* toolsforever links onder */
+p{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    font-size: 1rem;
+    margin: 0px;
+
+}
+
+/* de tabel */
+
+tr{
+    font-size: 25px;
+    text-align: center;
+    border: solid black;
+
+}
+
+td{
+  border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    padding: 10px;
+    border-radius: 1px;
+}
+.tabel{
+    padding: 0;
+    margin: 0;
+    border-width: 1px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+table{
+ border: 1px solid black;
+ box-shadow: 0px 0px 10px 3px grey;
+ border-radius: 5px;
+ border-width: 2px;
+ gap: 20px;
+}
+
+#yo td{
+    color: rgb(47, 152, 217);
+    border: none;
+    font-size: 18px;
+}
