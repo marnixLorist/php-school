@@ -22,7 +22,7 @@
      $vPrijs = isset($_POST["verkoopprijs"]) ? $_POST["verkoopprijs"] : null;
 
     $stmt = $conn->prepare("INSERT INTO artikel ( locatie, product, type, fabriek, aantal, prijs, inkoopprijs, verkoopprijs) VALUES ( ?, ?, ?, ?, ?, ?, ?,?)");
-    $stmt->bind_param("ssssssss", $locatie, $product, $type, $fabriek, $aantal, $prijs, $iPrijs, $vPrijs);
+    $stmt->bind_param("ssssiiii", $locatie, $product, $type, $fabriek, $aantal, $prijs, $iPrijs, $vPrijs);
     $stmt->execute();
     $stmt->close();
 
@@ -54,7 +54,7 @@
         <div class="dropdown-content">
         <a href="toolsforever.php">home</a>
         <a href="toolsforever1.php">voorraad</a>
-        <a href="crud.php">uitloggen</a>
+        <a href="bestellijst.php">bestellijst</a>
         </div>
         </div>
     </header>
@@ -70,7 +70,7 @@
         product<input type="text" name="product" value="">   
         type<input type="text" name="type" value="">
         fabriek<input type="text" name="fabriek" value="">
-        aantal<input type="text" name="aantal" value="">
+        aantal<input type="number" name="aantal" value="">
         prijs<input type="text" name="prijs" value="">
         inkoopprijs<input type="text" name="inkoopprijs" value="">
         verkoopprijs<input type="text" name="verkoopprijs" value="">
