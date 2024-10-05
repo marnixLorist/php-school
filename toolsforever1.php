@@ -16,18 +16,21 @@
             <div class="dropdown-content">
                 <a href="toolsforever.php">home</a>
                 <a href="toevoegen.php">toevoegen</a>
-                <a href="crud.php">uitloggen</a>
+                <a href="bestellijst.php">bestellijst</a>
             </div>
         </div>
     </header>
     <form action="toolsforever1.php" method="post">
+        <div class="locatieSelect">
         <label for='opties'>Filter per locatie</label>
-        <select name="opties">
+        <select name="opties" class="decorated" >
             <option value="Almere">Almere</option>
             <option value="Eindhoven">Eindhoven</option>
             <option value="Rotterdam">Rotterdam</option>
         </select>
         <input type="submit" value="submit">
+        </div>
+
     </form>
 
 <?php
@@ -43,7 +46,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Handle delete
+// delete artikel
 if (isset($_POST['delete_id'])) {
     $delete_id = $_POST['delete_id'];
     $sql_delete = "DELETE FROM artikel WHERE idartikel = ?";
@@ -51,13 +54,13 @@ if (isset($_POST['delete_id'])) {
     $stmt_delete->bind_param("i", $delete_id);
     $stmt_delete->execute();
     if ($stmt_delete->affected_rows > 0) {
-        echo "<div class='alert alert-success'>Record deleted successfully.</div>";
+        echo "<div class='alert alert-success'>product verwijderd.</div>";
     } else {
-        echo "<div class='alert alert-danger'>Failed to delete record.</div>";
+        echo "<div class='alert alert-danger'>kan product niet verwijderen.</div>";
     }
 }
 
-// Handle edit
+// edit artikel
 if (isset($_POST['edit_id'])) {
     $edit_id = $_POST['edit_id'];
     $sql_edit = "SELECT * FROM artikel WHERE idartikel = ?";
@@ -67,7 +70,7 @@ if (isset($_POST['edit_id'])) {
     $edit_result = $stmt_edit->get_result();
     $edit_row = $edit_result->fetch_assoc();
 
-    // Show edit form
+    // edit forms
     echo '
     <h3>Edit Artikel</h3>
     <form action="toolsforever1.php" method="post">
@@ -93,7 +96,7 @@ if (isset($_POST['edit_id'])) {
     ';
 }
 
-// Update artikel
+// update artikel
 if (isset($_POST['update'])) {
     $idartikel = $_POST['idartikel'];
     $product = $_POST['product'];
@@ -110,9 +113,9 @@ if (isset($_POST['update'])) {
     $stmt_update->bind_param("ssssddisi", $product, $type, $fabriek, $inkoopprijs, $verkoopprijs, $aantal, $prijs, $locatie, $idartikel);
 
     if ($stmt_update->execute()) {
-        echo "<div class='alert alert-success'>Record updated successfully.</div>";
+        echo "<div class='alert alert-success'>Product aangepast</div>";
     } else {
-        echo "<div class='alert alert-danger'>Failed to update record.</div>";
+        echo "<div class='alert alert-danger'>Kan product niet aanpassen.</div>";
     }
 }
 
@@ -171,8 +174,8 @@ if ($result->num_rows > 0) {
     }
     echo '</tbody></table>';
 } else {
-    echo "<div class='alert alert-info'>No products found.</div>";
+    echo "<div class='alert alert-info'>Geen producten gevonden</div>";
 }
 
-$conn->close(); // Close the database connection
+$conn->close();
 ?>
