@@ -1,7 +1,11 @@
 .inlog{
     justify-content: center;
     display: flex;
+}
 
+a{
+    text-decoration: none;
+    color: black;
 }
 
 .gegevens{

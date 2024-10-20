@@ -3,10 +3,8 @@ $servername = "mysql";
 $username = "root";
 $password = "password";
 
-// Create connection
 $conn = new mysqli($servername, $username, $password, "crud");
 
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -23,7 +21,6 @@ if (isset($_POST['updateKnop'])) {
     $stmt->bind_param("ssss", $nieuwEmail, $hashed_wachtwoord, $voornaam, $achternaam);
     $stmt->execute();
 }
-
 
     if (isset($_POST['submitKnop'])) {
         $voornaam = $_POST['voornaam'];
@@ -49,8 +46,6 @@ if (isset($_POST['updateKnop'])) {
                 $stmt->close();
     }   
 
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,7 +56,7 @@ if (isset($_POST['updateKnop'])) {
     <link rel="stylesheet" href="crudd.css">
     </head>
     <body>
-<h1 class="inlog" >succesvol ingelogd.</h1>
+<a href="crud.php"><h1 class="inlog" >succesvol ingelogd.</h1></a>
 <div class="gegevens">
     <h3>Update je email en wachtwoord</h3>
     <form action="crudd.php" method="post" >
@@ -70,7 +65,6 @@ if (isset($_POST['updateKnop'])) {
     nieuwe email <input type="text" name="nieuwEmail" value="">
     nieuw wachtwoord <input type="password" name="nieuwWachtwoord" value="">
     
-
     <input type="submit" name="updateKnop">
     </form>
     <h3>Update je adres, postcode en telefoon</h3>
