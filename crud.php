@@ -3,10 +3,8 @@
      $username = "root";
      $password = "password";
      
-     // Create connection
      $conn = new mysqli($servername, $username, $password, "crud");
      
-     // Check connection
      if ($conn->connect_error) {
          die("Connection failed: " . $conn->connect_error);
      }
@@ -23,7 +21,6 @@
      $email = isset($_POST["email"]) ? $_POST["email"] : "";
      $wachtwoord = isset($_POST["wachtwoord"]) ? $_POST["wachtwoord"] : "";
 
-    
         $stmt = $conn->prepare("SELECT * FROM inlogInformatie WHERE email = ? ");
         $stmt->bind_param("s", $email);
         $stmt->execute();
