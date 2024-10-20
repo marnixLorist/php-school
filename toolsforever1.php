@@ -59,7 +59,6 @@
         $stmt_delete->close();
     }
 
-    // opslaan aangepaste fomrs
     if (isset($_POST['save'])) {
         $idArtikel = $_POST['idartikel'];
         $naam = $_POST['naam'];

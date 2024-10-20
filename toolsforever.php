@@ -1,7 +1,3 @@
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,13 +11,15 @@
 
 <header>
     <a href="toevoegen.php"><h1 class="start">Tools<span>4</span>Ever<span class="punt">.<span></h1></a>
+</header>
+    <div class="menu-container">
     <div class="menu">
         <a href="crud.php"><h5 class="topL">uitloggen</h5></a>
         <a href="toolsforever1.php"><h5 class="topR" id="voorraadknop" >voorraad</h5></a>
         <a href="toevoegen.php"><h5 class="bottomL">Toevoegen</h5></a>
         <a href="bestellijst.php"><h5 class="bottomR">Bestellijst</h5></a>
     </div>
-</header>
+    </div>
 <footer>
     <p class="t">Tools4Ever © 2024</p>
 </footer>

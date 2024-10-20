@@ -2,6 +2,7 @@
 $servername = "mysql";
 $username = "root";
 $password = "password";
+
 $conn = new mysqli($servername, $username, $password, "toolsforever");
 
 if ($conn->connect_error) {
@@ -17,16 +18,16 @@ if ($conn->connect_error) {
         $stmt = $conn->prepare("INSERT INTO voorraad (idArtikel, idVestiging, aantal) VALUES (?, ?, ?) 
                                 ON DUPLICATE KEY UPDATE aantal = aantal + VALUES(aantal)");
         if ($stmt === false) {
-            die("Prepare failed: " . $conn->error);
+            die("kan niet toevoegen: ");
         }
 
         $stmt->bind_param("iii", $idProduct, $idVestiging, $aantal);
         if ($stmt->execute() === false) {
-            die("Execute failed: " . $stmt->error);
+            die("kan niet toevoegen: ");
         }
 
         $stmt->close();
-        echo "Gegevens succesvol toegevoegd of bijgewerkt.";
+        echo "Gegevens succesvol toegevoegd.";
     } else {
         echo "<span class='name'>Vul alles in.</span>";
     }
