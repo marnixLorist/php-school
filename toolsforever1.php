@@ -15,167 +15,165 @@
             <button class="dropbtn"><i class="fa-solid fa-bars"></i></button>
             <div class="dropdown-content">
                 <a href="toolsforever.php">home</a>
-                <a href="toevoegen.php">toevoegen</a>
+                <a href="toevoegen.php">product</a>
                 <a href="bestellijst.php">bestellijst</a>
+                <a href="voorraad.php">toevoegen</a>
+                <a href="toolsforever1.php">voorraad</a>
             </div>
         </div>
     </header>
     <form action="toolsforever1.php" method="post">
         <div class="locatieSelect">
-        <label for='opties'>Filter per locatie</label>
-        <select name="opties" class="decorated" >
-            <option value="Almere">Almere</option>
-            <option value="Eindhoven">Eindhoven</option>
-            <option value="Rotterdam">Rotterdam</option>
-        </select>
-        <input type="submit" value="submit">
+            <label for='opties'>Filter per locatie</label>
+            <select name="opties" class="decorated">
+                <option value="Almere">Almere</option>
+                <option value="Eindhoven">Eindhoven</option>
+                <option value="Rotterdam">Rotterdam</option>
+            </select>
+            <input type="submit" value="submit">
         </div>
-
     </form>
 
-<?php
-$servername = "mysql";
-$username = "root";
-$password = "password";
+    <?php
+    $servername = "mysql";
+    $username = "root";
+    $password = "password";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, "toolsForEver");
+    $conn = new mysqli($servername, $username, $password, "toolsforever");
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    //delete die dproduct
+    if (isset($_POST['delete'])) {
+        $idArtikel = $_POST['idartikel'];
+        $idVestiging = $_POST['idvestiging'];
+        $sql_delete = "DELETE FROM voorraad WHERE idArtikel = ? AND idVestiging = ?";
+        $stmt_delete = $conn->prepare($sql_delete);
+        $stmt_delete->bind_param("ii", $idArtikel, $idVestiging);
+        if ($stmt_delete->execute()) {
+            echo "<div class='alert alert-success'>Product verwijderd</div>";
+        } else {
+            echo "<div class='alert alert-danger'>Kan product niet verwijderen</div>";
+        }
+        $stmt_delete->close();
+    }
 
-// delete artikel
-if (isset($_POST['delete_id'])) {
-    $delete_id = $_POST['delete_id'];
-    $sql_delete = "DELETE FROM artikel WHERE idartikel = ?";
-    $stmt_delete = $conn->prepare($sql_delete);
-    $stmt_delete->bind_param("i", $delete_id);
-    $stmt_delete->execute();
-    if ($stmt_delete->affected_rows > 0) {
-        echo "<div class='alert alert-success'>product verwijderd.</div>";
+    // opslaan aangepaste fomrs
+    if (isset($_POST['save'])) {
+        $idArtikel = $_POST['idartikel'];
+        $naam = $_POST['naam'];
+        $type = $_POST['type'];
+        $fabriek = $_POST['fabriek'];
+        $aantal = $_POST['aantal'];
+        $prijs = $_POST['prijs'];
+
+        $sql_update = "UPDATE artikel
+                       INNER JOIN voorraad ON artikel.idartikel = voorraad.idartikel
+                       SET artikel.naam = ?, artikel.type = ?, artikel.fabriek = ?, voorraad.aantal = ?, artikel.waardeverkoop = ?
+                       WHERE artikel.idartikel = ?";
+        $stmt_update = $conn->prepare($sql_update);
+        $stmt_update->bind_param("sssddi", $naam, $type, $fabriek, $aantal, $prijs, $idArtikel);
+
+        if ($stmt_update->execute()) {
+            echo "<div class='alert alert-success'>Gegevens succesvol bijgewerkt</div>";
+        } else {
+            echo "<div class='alert alert-danger'>Fout bij het bijwerken van de gegevens</div>";
+        }
+        $stmt_update->close();
+    }
+
+    // voor bewerken gegevens
+    if (isset($_GET['idartikel'])) {
+        $idArtikel = $_GET['idartikel'];
+
+        $sql_edit = "SELECT artikel.naam AS naam, artikel.type AS type, artikel.fabriek AS fabriek, voorraad.aantal AS aantal, artikel.waardeverkoop AS prijs
+                     FROM artikel
+                     INNER JOIN voorraad ON artikel.idartikel = voorraad.idartikel
+                     WHERE artikel.idartikel = ?";
+        $stmt_edit = $conn->prepare($sql_edit);
+        $stmt_edit->bind_param("i", $idArtikel);
+        $stmt_edit->execute();
+        $result_edit = $stmt_edit->get_result();
+
+        if ($result_edit->num_rows > 0) {
+            $row_edit = $result_edit->fetch_assoc();
+            ?>
+            <!-- pas die ding aan -->
+            <form action="toolsforever1.php" method="post">
+                <input type="hidden" name="idartikel" value="<?php echo $idArtikel; ?>">
+                naam<input type="text" name="naam" value="<?php echo $row_edit['naam']; ?>"><br>
+                type<input type="text" name="type" value="<?php echo $row_edit['type']; ?>"><br>
+                fabriek<input type="text" name="fabriek" value="<?php echo $row_edit['fabriek']; ?>"><br>
+                aantal<input type="number" name="aantal" value="<?php echo $row_edit['aantal']; ?>"><br>
+                prijs<input type="number" step="0.01" name="prijs" value="<?php echo $row_edit['prijs']; ?>"><br>
+                <button type="submit" name="save" class="btn btn-success">Opslaan</button>
+            </form>
+            <?php
+        } else {
+            echo "<div class='alert alert-danger'>Geen gegevens gevonden voor dit artikel</div>";
+        }
+    }
+    $locatieOptie = isset($_POST['opties']) ? $_POST['opties'] : "";
+
+    // selecteer die ding
+    $sql_select = "SELECT artikel.idartikel, artikel.naam AS naam, artikel.type AS type, artikel.fabriek AS fabriek, voorraad.aantal AS aantal, artikel.waardeverkoop AS prijs, vesteging.idVestiging, vesteging.naam AS locatie
+                   FROM artikel
+                   INNER JOIN voorraad ON artikel.idartikel = voorraad.idartikel
+                   INNER JOIN vesteging USING(idVestiging)";
+
+    if (!empty($locatieOptie)) {
+        $sql_select .= " WHERE vesteging.naam = ?";
+    }
+    $stmt_select = $conn->prepare($sql_select);
+
+    if (!empty($locatieOptie)) {
+        $stmt_select->bind_param("s", $locatieOptie);
+    }
+    $stmt_select->execute();
+    $result = $stmt_select->get_result();
+
+    if ($result->num_rows > 0) {
+        echo '<table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Naam</th>
+                        <th>Type</th>
+                        <th>Fabriek</th>
+                        <th>Aantal</th>
+                        <th>Prijs</th>
+                        <th>Locatie</th>   
+                        <th>Delete/Edit</th> 
+                    </tr>
+                </thead>
+                <tbody>';
+        while ($row = $result->fetch_assoc()) {
+            echo '<tr>
+                    <td>' . $row["naam"] . '</td>
+                    <td>' . $row["type"] . '</td>
+                    <td>' . $row["fabriek"] . '</td>
+                    <td>' . $row["aantal"] . '</td>
+                    <td>' . $row["prijs"] . '</td>
+                    <td>' . $row["locatie"] . '</td>
+                    <td>
+                        <form action="toolsforever1.php" method="post" style="display:inline;">
+                            <input type="hidden" name="idartikel" value="' . $row["idartikel"] . '">
+                            <input type="hidden" name="idvestiging" value="' . $row["idVestiging"] . '">
+                            <button type="submit" name="delete" class="btn btn-danger">Delete</button>
+                        </form>
+                        <form action="toolsforever1.php" method="get" style="display:inline;">
+                            <input type="hidden" name="idartikel" value="' . $row["idartikel"] . '">
+                            <button type="submit" class="btn btn-primary">Edit</button>
+                        </form>
+                    </td>
+                  </tr>';
+        }
+        echo '</tbody></table>';
     } else {
-        echo "<div class='alert alert-danger'>kan product niet verwijderen.</div>";
+        echo "<div class='alert alert-info'>Geen producten gevonden</div>";
     }
-}
 
-// edit artikel
-if (isset($_POST['edit_id'])) {
-    $edit_id = $_POST['edit_id'];
-    $sql_edit = "SELECT * FROM artikel WHERE idartikel = ?";
-    $stmt_edit = $conn->prepare($sql_edit);
-    $stmt_edit->bind_param("i", $edit_id);
-    $stmt_edit->execute();
-    $edit_result = $stmt_edit->get_result();
-    $edit_row = $edit_result->fetch_assoc();
-
-    // edit forms
-    echo '
-    <h3>Edit Artikel</h3>
-    <form action="toolsforever1.php" method="post">
-        <input type="hidden" name="idartikel" value="' . $edit_row["idartikel"] . '">
-        <label>Product:</label>
-        <input type="text" name="product" value="' . $edit_row["product"] . '"><br>
-        <label>Type:</label>
-        <input type="text" name="type" value="' . $edit_row["type"] . '"><br>
-        <label>Fabriek:</label>
-        <input type="text" name="fabriek" value="' . $edit_row["fabriek"] . '"><br>
-        <label>Inkoopprijs:</label>
-        <input type="text" name="inkoopprijs" value="' . $edit_row["inkoopprijs"] . '"><br>
-        <label>Verkoopprijs:</label>
-        <input type="text" name="verkoopprijs" value="' . $edit_row["verkoopprijs"] . '"><br>
-        <label>Aantal:</label>
-        <input type="text" name="aantal" value="' . $edit_row["aantal"] . '"><br>
-        <label>Prijs:</label>
-        <input type="text" name="prijs" value="' . $edit_row["prijs"] . '"><br>
-        <label>Locatie:</label>
-        <input type="text" name="locatie" value="' . $edit_row["locatie"] . '"><br>
-        <input type="submit" name="update" value="Update">
-    </form>
-    ';
-}
-
-// update artikel
-if (isset($_POST['update'])) {
-    $idartikel = $_POST['idartikel'];
-    $product = $_POST['product'];
-    $type = $_POST['type'];
-    $fabriek = $_POST['fabriek'];
-    $inkoopprijs = $_POST['inkoopprijs'];
-    $verkoopprijs = $_POST['verkoopprijs'];
-    $aantal = $_POST['aantal'];
-    $prijs = $_POST['prijs'];
-    $locatie = $_POST['locatie'];
-
-    $sql_update = "UPDATE artikel SET product=?, type=?, fabriek=?, inkoopprijs=?, verkoopprijs=?, aantal=?, prijs=?, locatie=? WHERE idartikel=?";
-    $stmt_update = $conn->prepare($sql_update);
-    $stmt_update->bind_param("ssssddisi", $product, $type, $fabriek, $inkoopprijs, $verkoopprijs, $aantal, $prijs, $locatie, $idartikel);
-
-    if ($stmt_update->execute()) {
-        echo "<div class='alert alert-success'>Product aangepast</div>";
-    } else {
-        echo "<div class='alert alert-danger'>Kan product niet aanpassen.</div>";
-    }
-}
-
-$selectLocatie = isset($_POST["opties"]) ? $_POST["opties"] : null;
-
-if (!empty($selectLocatie)) {
-    $sql_select = "SELECT * FROM artikel WHERE locatie = ?";
-    $stmt = $conn->prepare($sql_select);
-    $stmt->bind_param("s", $selectLocatie);
-    $stmt->execute();
-    $result = $stmt->get_result();
-} else {
-    $sql_select = "SELECT * FROM artikel";
-    $result = $conn->query($sql_select);
-}
-
-if ($result->num_rows > 0) {
-    echo '<table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>idartikel</th>
-                    <th>product</th>
-                    <th>Type</th>
-                    <th>Fabriek</th>
-                    <th>inkoopprijs</th>
-                    <th>verkoopprijs</th>
-                    <th>aantal</th>
-                    <th>prijs</th>
-                    <th>locatie</th>
-                    <th>Delete/Edit</th>
-                </tr>
-            </thead>
-            <tbody>';
-    while ($row = $result->fetch_assoc()) {
-        echo '<tr>
-                <td>' . $row["idartikel"] . '</td>
-                <td>' . $row["product"] . '</td>
-                <td>' . $row["type"] . '</td>
-                <td>' . $row["fabriek"] . '</td>
-                <td>' . $row["inkoopprijs"] . '</td>
-                <td>' . $row["verkoopprijs"] . '</td>
-                <td>' . $row["aantal"] . '</td>
-                <td>' . $row["prijs"] . '</td>
-                <td>' . $row["locatie"] . '</td>
-                <td>
-                <form method="POST" action="toolsforever1.php">
-                    <input type="hidden" name="delete_id" value="' . $row["idartikel"] . '">
-                    <input type="submit" name="delete" value="Delete" class="btn btn-danger">
-                </form>
-                <form method="POST" action="toolsforever1.php">
-                    <input type="hidden" name="edit_id" value="' . $row["idartikel"] . '">
-                    <input type="submit" name="edit" value="Edit" class="btn btn-primary">
-                </form>
-                </td>
-              </tr>';
-    }
-    echo '</tbody></table>';
-} else {
-    echo "<div class='alert alert-info'>Geen producten gevonden</div>";
-}
-
-$conn->close();
-?>
+    $conn->close();
+    ?>
+</body>
+</html>
