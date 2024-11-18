@@ -26,7 +26,6 @@
     <p>Tools4Ever © 2024</p>
 
     <?php
-    // Database verbinding
     $servername = "mysql";
     $username = "root";
     $password = "password";
@@ -76,9 +75,14 @@
             echo "Fout bij het toevoegen van bestelling: ";
         }
     }
+
+    $sql = "SELECT idArtikel, naam FROM artikel";
+$result = $conn->query($sql);
     ?>
 
     <!-- Bestelformulier -->
+     <div class="bestellijst">
+        <div class="left">
     <form action="bestellijst.php" method="POST">
         <label for="locatieSelect">Select locatie:</label>
         <select name="locatieSelect" id="locatieSelect">
@@ -92,10 +96,28 @@
             product id:<input type="number" name="idartikel[]" required>
             aantal<input type="number" name="aantal[]" required><br><br>
         </div>
-
+        <div class="buttons">
         <button type="button" onclick="addProductField()">Voeg nog een product toe</button><br><br>
-        <input type="submit" value="Bestellen">
+        <input type="submit" value="Bestellen" id="bestellen">
+        </div>
     </form>
+    </div>
+    <div class="right">
+        <div class="tabel">
+    <?php
+        if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            echo "<div class='artikel-item'>";
+            echo "ID: " . $row["idArtikel"] . "  Naam: " . $row["naam"];
+            echo "</div>";
+        }
+    } else {
+        echo "Geen resultaten gevonden.";
+    }
+    ?>
+    </div>
+    </div>
+    </div>
 
     <h3>Overzicht van bestellingen:</h3>
     <?php

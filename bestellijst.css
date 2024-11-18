@@ -34,6 +34,7 @@ header{
     display: flex;
     width: 100%;
     align-items: center;
+    position: fixed;
 }
 
 /* geen marign in de body en kan niet meer scrollen naar rechts */
@@ -155,4 +156,64 @@ td{
 table .tabel{
     position: absolute;
     left: 60%;
+}
+
+.bestellijst{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.left{
+    display: flex;
+    justify-content: center;
+}
+
+.right{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tabel{
+    width: 250px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border: 2px black solid;
+    border-collapse: collapse;
+}
+
+.buttons{
+    display: flex;
+    gap: 20px;
+}
+
+#bestellen{
+    background-color: rgb(47, 152, 217);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .5s;
+}
+
+
+button{
+    background-color: rgb(47, 152, 217);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .5s;
+}
+
+#bestellen:hover,button:hover{
+    background-color: rgb(139, 206, 249);
 }
